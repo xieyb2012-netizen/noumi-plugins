@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "noumi-plugin": {
+      "type": "http",
+      "url": "https://noumi.cc/mcp"
+    }
+  }
+}
