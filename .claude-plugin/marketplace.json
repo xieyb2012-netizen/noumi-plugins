@@ -1,0 +1,21 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "noumi-beta",
+  "description": "Noumi 邀请测试版插件目录。与 Codex 侧的 .agents/plugins/marketplace.json 并存，两者路径不冲突。",
+  "owner": {
+    "name": "Noumi",
+    "email": "support@noumi.cc"
+  },
+  "plugins": [
+    {
+      "name": "noumi",
+      "source": "./plugins/noumi-claude",
+      "description": "一句灵感，一首完整的歌。Claude 写词定风格，Noumi 合成音频，成品进你在 noumi.cc 的创作者中心，由你决定是否公开发布。",
+      "category": "creative",
+      "keywords": ["music", "songwriting", "text-to-music", "creative"],
+      "homepage": "https://noumi.cc",
+      "license": "MIT",
+      "author": { "name": "Noumi", "url": "https://noumi.cc" }
+    }
+  ]
+}

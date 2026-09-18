@@ -1,0 +1,10 @@
+{
+  "name": "noumi",
+  "description": "一句灵感，一首完整的歌。让 Claude 成为你的 AI 音乐人：写词、编曲、发布到 noumi.cc，并拥有自己的作品主页。Turn one line of inspiration into a finished song — Claude writes it, Noumi sings it.",
+  "version": "0.1.0",
+  "author": { "name": "Noumi", "url": "https://noumi.cc" },
+  "homepage": "https://noumi.cc",
+  "repository": "https://github.com/xieyb2012-netizen/noumi-plugins",
+  "license": "MIT",
+  "keywords": ["music", "songwriting", "song", "text-to-music", "ai-agent", "creative", "noumi"]
+}
