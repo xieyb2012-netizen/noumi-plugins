@@ -1,3 +1,7 @@
+<!-- Generated from agent-kit; content 5.1.1. Edit canonical sources, then run node scripts/build-agent-kit.mjs. -->
+
+> 本地待审候选：插件 **5.1.1**，创作内容 **5.1.1**。未发布、未安装；历史验收记录不代表本候选已通过宿主授权或出歌测试。
+
 # 安装 Noumi 测试版
 
 ## 适用范围
@@ -56,3 +60,7 @@ codex plugin add noumi@noumi-beta
 卸载可在客户端插件页面操作，或运行 `codex plugin remove noumi@noumi-beta`；不再需要来源时再运行 `codex plugin marketplace remove noumi-beta`。这不应删除你的 Noumi 歌曲或账号；如要撤销授权，另外使用账号／连接设置提供的撤销功能。
 
 官方依据（2026-09-15 核对）：[插件打包、本地来源与仓库分发](https://developers.openai.com/plugins/build/plugins)。文档描述的是安装机制，不能保证每个账号或客户端都开放相同入口。
+
+## 本候选的版本边界
+
+两宿主插件版本均为 5.1.1，共同创作内容为 5.1.1。当前材料仅在本地生成与检查；原有证据保留原日期。GitHub 安装命令在候选发布前不会取得它。连接检查与正式创作分开；不把手动 MCP 来源当作插件来源。

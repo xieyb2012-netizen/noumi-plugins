@@ -1,7 +1,10 @@
-# Noumi
+# Noumi · Codex 插件
 
-Create a finished original song from one short idea. Authorize your own Noumi account, then ask for a song in your preferred language.
+> 本地待审候选：插件 **5.1.1**，创作内容 **5.1.1**。未发布、未安装；历史验收记录不代表本候选已通过宿主授权或出歌测试。
 
-This plugin connects to https://noumi.cc/mcp and includes the create-music workflow. It uses connector-managed OAuth, contains no credentials, and does not run a local music model. Generation uses available Noumi credits. New authorized creators without a musician follow the service registration flow before creation. Songs remain drafts until their owner publishes them manually in Noumi.
 
-Distribution instructions are in the repository root README and docs/INSTALL.zh-CN.md. This is an invitation beta for compatible local desktop plugin hosts, not an approved public-directory listing or a claim of universal ChatGPT compatibility.
+一句话创作完整歌曲，交付到创作者中心，作品默认是草稿。此宿主使用独立清单和技能路径，远程连接由 `.mcp.json` 声明 `noumi-plugin` → `https://noumi.cc/mcp`。授权由用户在宿主中完成。
+
+创作能力见 [主 Skill](skills/create-music/SKILL.md) 及其 references。安装与测试请从完整包的 [接入规则](../../docs/INSTALL-AGENT.md) 开始，保留根目录市场文件；不能只复制本目录。
+
+内容版本 5.1.1，插件版本 5.1.1。仅凭文件存在不能宣称插件已安装、OAuth 已成功或歌曲已生成。
