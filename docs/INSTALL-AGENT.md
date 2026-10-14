@@ -1,24 +1,39 @@
-<!-- Generated from agent-kit; content 5.1.1. Edit canonical sources, then run node scripts/build-agent-kit.mjs. -->
-
-> 本地待审候选：插件 **5.1.1**，创作内容 **5.1.1**。未发布、未安装；历史验收记录不代表本候选已通过宿主授权或出歌测试。
+<!-- Generated from agent-kit; content 5.1.2. Edit canonical sources, then run node scripts/build-agent-kit.mjs. -->
 
 # Agent 接入规则
 
-状态：双端邀请测试。当前验收边界见 COMPATIBILITY.md。
+> 最近一次公开发布：插件与创作内容 **5.1.2**（2026-10-15，GitHub 本仓库）；本地 MCP 包为 npm `noumi-mcp@5.1.1`。已安装的副本不会自动更新，以宿主里实际显示的版本为准；发布不等于每个宿主都已实测通过，实测范围见兼容性记录。
 
-1. 识别当前宿主、版本及安装权限，不能仅凭模型名判断。检查现有插件、工具来源和技能，已在别的客户端安装不算。不要自动关闭、覆盖或移除现有服务。
-2. ChatGPT 桌面工作环境中具备 Codex 插件管理能力时，使用仓库 `.agents/plugins/marketplace.json`、`plugins/noumi`；Claude Code 使用 `.claude-plugin/marketplace.json`、`plugins/noumi-claude`。一次只选当前宿主的适配，不能同时安装两套作为兜底。
-3. 从 GitHub 安装：Codex CLI 执行 `codex plugin marketplace add xieyb2012-netizen/noumi-plugins`，再执行 `codex plugin add noumi@noumi-beta`；Claude Code CLI 执行 `claude plugin marketplace add xieyb2012-netizen/noumi-plugins`，再执行 `claude plugin install noumi@noumi-beta`。执行前查看当前版本帮助与已有配置，来源已存在时不要重复添加或覆盖。桌面 Claude Code 已验证可加载 CLI 装入的本地插件，不能把这个结果说成桌面 GitHub 安装路径已通过。保留实际版本、来源与工具来源。
-4. 安装后报告实际生效条件：Claude 摘要提示 reload 时，在交互会话执行 `/reload-plugins`，否则新会话验证；Codex 侧新任务检查，必要时重启客户端，不承诺热加载。
-5. Claude CLI 授权在交互会话的 `/mcp` 中选择实际插件服务（可能显示带插件前缀的 `noumi-plugin`）。桌面应用账户连接器目录不能代替该入口。宿主要求登录时由用户自行登录。
-6. 用户在浏览器确认账号与授权内容；授权超时回客户端重新发起，不催促跳过阅读。不要读取或传递密码、Token、Cookie、完整授权链接。已有连接但身份不明时检查实际来源；重新授权仅针对明确选中的服务。
-7. 只调用 `noumi_whoami`、`noumi_get_guide` 完成只读验收。须有实际返回，且确认来源是安装的插件。工具前缀由宿主呈现，不凭推测拼接；手动 MCP 成功不能替代插件验收。
-8. 报告真实结果，再问用户想写什么歌。身份未知不等于音乐人为空。接入测试不注册、不提交歌曲、不消费积分；正式创作按技能处理复用、选择与注册。
+目标：帮主人把 Noumi 连接到当前工具一次，确认身份后就能用聊天创作。不要让主人在插件、MCP、API 之间做技术选择；按下面的顺序判断，需要主人亲手操作时，告诉他具体在哪里点。
 
-如果宿主不能自行安装，只提供其已验证的设置入口和 `https://noumi.cc/mcp`；该产品形态未验证时明确说明，不能编造菜单或宣称兼容。连接器接通也不代表已安装技能。
+## 先判断，再动手
 
-同一 URL 有多个来源时不假设自动去重，不自动清除凭据。需要配置调整时先报告具体影响并取得授权。
+1. 识别当前宿主、版本和能力（能否添加远程 MCP、能否发起 OAuth、能否运行本地程序），不能只凭模型名判断。
+2. 先检查已有的 Noumi 来源（账户连接器、手动 MCP 条目、插件、本地包）。已经有能用的连接，就调 `noumi_whoami` 查身份，不新增第二个来源，不自动关闭、覆盖或删除现有服务。
 
-## 本候选的版本边界
+## 默认：宿主原生远程连接 + OAuth
 
-两宿主插件版本均为 5.1.1，共同创作内容为 5.1.1。当前材料仅在本地生成与检查；原有证据保留原日期。GitHub 安装命令在候选发布前不会取得它。连接检查与正式创作分开；不把手动 MCP 来源当作插件来源。
+3. 在宿主里添加远程 MCP `https://noumi.cc/mcp`（传输 Streamable HTTP）。你不能自己添加时，告诉主人在宿主设置的哪里添加；未验证的产品形态如实说明，不编造菜单。Claude 账号用户优先在 claude.ai 网页的 Customize → Connectors 添加账户连接器。
+4. 授权由主人本人完成：宿主发起登录 → 浏览器打开 Noumi → 登录拥有原音乐人的账号 → 点「允许」。不要读取或转发密码、Token、Cookie、授权码或完整授权链接。授权链接一次性、十分钟有效，过期就从宿主重新发起，不靠刷新页面。
+5. 宿主显示「已连接」只说明服务器连得上。身份工具被拒（HTTP 401 或提示需要登录）= 还没授权，不是没有音乐人。
+6. 不要为主人自写 OAuth 客户端或直连脚本：脚本只能在拿到令牌之后续用，首次授权回调失败时救不回来。
+
+## 宿主不支持 OAuth：原音乐人密钥备用
+
+7. 宿主确实不会为自定义远程服务发起 OAuth（例如 2026-10-13 实测的 WorkBuddy 5.3.8），但能运行本地程序时，不必先失败一次：请主人在 https://noumi.cc/dashboard/artists 找到原音乐人，在「密钥（仅用于工具配置）」里取密钥。
+8. 配置本地 stdio 服务：command 为 `npx`，args 为 `["-y", "noumi-mcp@5.1.1"]`，密钥放进该服务的环境变量 `NOUMI_API_KEY`（用宿主的密钥 / 环境变量配置）。不要让主人把密钥贴进聊天，不要写进普通记忆、提示词、日志或含密钥的终端命令。普通 JSON 配置文件只受文件权限保护，不是系统钥匙串；用环境变量交给本地包的密钥不会自动存进本地包的凭据文件。
+9. 远程地址的 Authorization 头只认 OAuth 令牌，不要把音乐人密钥填进去。不要为排错重置密钥——重置会让其他已配置的连接一起失效。
+
+## 插件（可选）
+
+10. 插件是同一远程连接 + 创作规范的打包，不是另一种授权。用插件就不要再手动加同一地址。Codex 用 `.agents/plugins/marketplace.json`、`plugins/noumi`；Claude Code 用 `.claude-plugin/marketplace.json`、`plugins/noumi-claude`。一次只装当前宿主那一套；安装命令见 README，执行前查看当前版本帮助与已有来源，已存在时不重复添加。
+11. 安装后按宿主提示生效：Claude 提示 reload 时在交互会话执行 `/reload-plugins`，否则新会话验证；Codex 新任务检查，必要时重启客户端。插件服务同样需要主人授权一次（Claude Code 在 `/mcp` 里选 `noumi-plugin`）。Windows 桌面版授权停在「打开 Claude」时，请主人在普通终端运行 `claude` → `/mcp` 授权，再回桌面版新开会话。
+
+## 确认身份（只读）
+
+12. 只调用 `noumi_whoami` 和 `noumi_get_guide`，报告账号、要用的音乐人（名字和编号）和已有作品数；多位音乐人时请主人明确选择。工具前缀由宿主呈现，不凭推测拼接。
+13. 状态分四种：未连接（看不到工具）／已连接未授权（身份工具被拒）／已授权待确认音乐人（有账号，没有或未选定音乐人）／可以创作（账号 + 音乐人编号 + 已有作品）。只有最后一种才算接好。
+14. 接入测试不注册、不提交歌曲、不消费积分。身份查不到不等于没有音乐人；连接失败、换会话都不是注册理由。真正没有音乐人的新用户，由主人确认名字后只建一个。
+15. 换新会话后再查一次身份，确认还是同一个音乐人编号。
+
+失败恢复按 https://noumi.cc/api-docs#troubleshooting 的分宿主说明处理。同一地址有多个来源时不假设自动去重，不自动清除凭据；需要调整配置先报告具体影响并取得主人同意。

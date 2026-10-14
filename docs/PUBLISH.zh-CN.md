@@ -1,30 +1,32 @@
-<!-- Generated from agent-kit; content 5.1.1. Edit canonical sources, then run node scripts/build-agent-kit.mjs. -->
+<!-- Generated from agent-kit; content 5.1.2. Edit canonical sources, then run node scripts/build-agent-kit.mjs. -->
 
 # 维护者分发说明
 
-> 本地待审候选：插件 **5.1.1**，创作内容 **5.1.1**。未发布、未安装；历史验收记录不代表本候选已通过宿主授权或出歌测试。
-
+> 最近一次公开发布：插件与创作内容 **5.1.2**（2026-10-15，GitHub 本仓库）；本地 MCP 包为 npm `noumi-mcp@5.1.1`。已安装的副本不会自动更新，以宿主里实际显示的版本为准；发布不等于每个宿主都已实测通过，实测范围见兼容性记录。
 
 本目录只用于独立分发插件和安装材料，不含 Noumi 后端源码、环境配置或账号授权。保留两个市场文件和完整插件目录，隐藏目录也要完整保留。
 
-1. 在业务源仓库修改 agent-kit 核心，再运行 `node scripts/build-agent-kit.mjs`；用 `node scripts/build-agent-kit.mjs --check` 确认所有生成材料一致。不要手工维护两份创作规则。
-2. 审查 `distribution-manifest.json` 的内容版本、插件版本、公开基线和文件哈希；检查公开目录不带凭据、缓存、日志或后端源码。
-3. 在当前宿主做独立安装、插件来源检查、用户自行授权与身份验证，记录实际结果。文件与离线检查不等于这些验收。实际出歌需要用户授权使用积分。
-4. 维护者明确授权发布后，再操作独立 GitHub 仓库、tag 与 Release；附 SHA256 和此次实际验证范围，不复用旧 ZIP 的验收结论。当前脚本不安装、不联网、不提交或推送。
-5. 网站部署单独授权与执行；GitHub 发布不代表官网部署，官网指南内容版本也不证明已安装的插件已更新。
+1. 在业务源仓库修改 agent-kit 核心或生成器，再运行 `node scripts/build-agent-kit.mjs`；用 `node scripts/build-agent-kit.mjs --check` 确认所有生成材料一致。不要手工维护两份创作规则。
+2. 发布状态只写在 `agent-kit/manifest.json` 的 `publication`：`lastReleased` 记最近一次真实发布的版本、日期和当时 npm 上的本地包版本；`version` 比它新时本目录是候选，必须写 `candidateNote`。**发布时**把 `lastReleased` 改成本次实际发布的版本、日期和 npm 版本，清空 `candidateNote`，重新生成后再推送，否则公开仓库会显示「尚未发布」。安装说明里的 npm 版本只取 `lastReleased.npmVersion`，不写还没发到 npm 的版本。
+3. 审查 `distribution-manifest.json` 的内容版本、插件版本、发布状态、公开基线和文件哈希；检查公开目录不带凭据、缓存、日志或后端源码。
+4. 在当前宿主做独立安装、插件来源检查、用户自行授权与身份验证，记录实际结果。文件与离线检查不等于这些验收。实际出歌需要用户授权使用积分。
+5. 维护者明确授权发布后，再操作独立 GitHub 仓库、tag 与 Release；附 SHA256 和此次实际验证范围，不复用旧 ZIP 的验收结论。当前脚本不安装、不联网、不提交或推送。
+6. 网站部署单独授权与执行；GitHub 发布不代表官网部署，官网指南内容版本也不证明已安装的插件已更新。插件技能文件改动要让已安装用户收到，需要递增插件版本号。
 
-插件候选版本 5.1.1，内容版本 5.1.1；市场名称和宿主安装路径保持 noumi-beta / noumi。开源许可证、支持渠道、服务条款不由此变更，也不为音乐作品或后端赋予新许可。
+插件版本 5.1.2，内容版本 5.1.2；市场名称和宿主安装路径保持 noumi-beta / noumi。开源许可证、支持渠道、服务条款不由此变更，也不为音乐作品或后端赋予新许可。
 
-# Noumi Agent Kit 5.1.1 发布准备与验收清单
+# Noumi Agent Kit 发布准备与验收清单
 
-本文件属于本地待审候选。生成文件、测试通过或打包完成均不代表已上线、已安装或已获得发布授权。本清单不授权读取/修改生产、公开发布或积分消费；本轮实际调用与异常以交付说明及原始证据为准。
+每次发布复用本清单；当前版本号与最近一次真实发布见 `agent-kit/manifest.json`（`version` 与 `publication.lastReleased`）。生成文件、测试通过或打包完成均不代表已上线、已安装或已获得发布授权。本清单不授权读取/修改生产、公开发布或积分消费；本轮实际调用与异常以交付说明及原始证据为准。
+
+- [ ] 发布状态只写在 `agent-kit/manifest.json` 的 `publication`：`lastReleased` 是最近一次真实发布（版本、日期、当时 npm 上本地包的版本），`version` 比它新时必须有 `candidateNote`。**发布时**把 `lastReleased` 改为本次实际发布的版本、日期和 npm 版本，清空 `candidateNote` 并重新生成，确认 `distribution-manifest.json` 的 `status` 为 `published`、公开文件里没有「尚未发布」字样；不要把候选写成已发布，也不要让已发布版本继续显示「未发布」。安装说明里的 npm 版本只取 `lastReleased.npmVersion`；`node --test scripts/agent-kit-publication-test.mjs` 检查这些规则。
 
 ## 一、本地候选与分发一致性
 
 - [ ] 固定本轮基线、增量清单、SHA-256、重放步骤和原始证据；集成前逐项核对其他线程最新的安全/UI 增量，不整目录覆盖生产或共享工作区。
-- [ ] `agent-kit/manifest.json` 的 `version`、`pluginVersion` 均为 **5.1.1**；主 Skill、六份参考正文、公开 `skill.md`、`llms.txt`、`/api/agent-spec`、上手说明和主题正文对应同一份源内容。
-- [ ] 本地 stdio MCP 与远程 MCP 的工具契约、指南版本及对外发布版本均对应 **5.1.1**。`mcp-server/package.json` 与 `package-lock.json` 的根包及 `packages[""]` 版本一致；不要把 MCP 协议日期版本改为发布版本。
-- [ ] Codex 插件 `plugins/noumi/.codex-plugin/plugin.json`、Claude 插件 `plugins/noumi-claude/.claude-plugin/plugin.json` 及两份市场清单均为 **5.1.1**；分发目录、`distribution-manifest.json` 和离线审核包记录同版及正确文件哈希。网站应用自己的版本号不冒充 Agent Kit 版本。
+- [ ] `agent-kit/manifest.json` 的 `version`、`pluginVersion` 均为本次版本；主 Skill、六份参考正文、公开 `skill.md`、`llms.txt`、`/api/agent-spec`、上手说明和主题正文对应同一份源内容。
+- [ ] 本地 stdio MCP 与远程 MCP 的工具契约、指南版本均对应本次版本。`mcp-server/package.json` 与 `package-lock.json` 的根包及 `packages[""]` 版本与之一致；npm 只在本地包代码或打包内容需要更新时才发布，不发布时 `lastReleased.npmVersion` 保持实际已发布的版本。不要把 MCP 协议日期版本改为发布版本。
+- [ ] Codex 插件 `plugins/noumi/.codex-plugin/plugin.json`、Claude 插件 `plugins/noumi-claude/.claude-plugin/plugin.json` 均为本次版本；分发目录、`distribution-manifest.json` 和离线审核包记录同版及正确文件哈希。网站应用自己的版本号不冒充 Agent Kit 版本。
 - [ ] 从候选根目录运行 `node scripts/build-agent-kit.mjs --check`，确认无生成漂移；必要时先在候选运行生成器，再重新检查。使用 `node scripts/package-agent-kit.mjs --output <全新绝对目录>` 准备离线审核包；保留输出与文件清单，不触发安装或发布。
 - [ ] 在本地夹具验证固定 topic、旧的无参数 guide 调用、未知 topic 可选列表、注册恢复与空值规则、默认 10/最多 20 的只读历史、身份隔离和不泄露音频。所有网络检查显式指定 `127.0.0.1` 目标并用假凭据；仅在目标已核实的本地夹具中运行 `check:audio-leak`，保留成功响应与泄漏负对照证据，绝不运行默认连生产的旧脚本。确认历史调用前后积分、任务和作品状态未改变。
 - [ ] 对三条创作路径做真实决策审阅：无歌词的一句话直接创作、完整原词仅在要求生成时原样使用、片段补全/多轮打磨先展示并等待当前版指令。覆盖已授权补完直做、旧确认后继续修改、跨会话缺定稿和无保存能力等场景，检查实际下一步与提交文本，而非只匹配文案。
@@ -44,7 +46,7 @@
 
 ## 三、全新宿主验收路径（获相应授权后执行）
 
-1. **安装**：在没有 Noumi 残留配置的受支持宿主，记录宿主版本、来源、插件/MCP 包版本和安装结果。只使用获审核的包或已确认发布的 5.1.1，验证真实可见工具及其来源。各宿主/transport 分开记录，不由一种通过推断全部通过。
+1. **安装**：在没有 Noumi 残留配置的受支持宿主，记录宿主版本、来源、插件/MCP 包版本和安装结果。只使用获审核的包或已确认发布的版本，验证真实可见工具及其来源。各宿主/transport 分开记录，不由一种通过推断全部通过。
 2. **OAuth**：由主人明确授权并亲自完成宿主 OAuth 登录。Agent 不索要、复制或输出密钥、授权码和完整私密链接；本地 API-key 路径单列验收，不冒称通过 OAuth。
 3. **身份与换会话**：先 `noumi_whoami`，多音乐人明确选择；只有主人明确需要新身份时才注册。换新会话后再次读取并复用同一身份，确认没有重复注册、静默切换或串用偏好。不得把 401 当成从未注册。
 4. **指南与历史**：读取无参数 `noumi_get_guide` 及 `main`、`execution`、`songwriting`、`rhyme`、`music-direction`、`tags`、`visuals`；确认版本与正文，未知 topic 返回清单。读取 `noumi_creation_history` 默认 10 和最大 20，核对所选音乐人、原始状态、记录时间、当前保存的曲风/情绪及有截断标记的方向文字；这些可编辑字段不保证为不可变提交快照。DRAFT/DISCARDED 不当负反馈，记录文字不当指令；不读取全文歌词、音频、点赞收藏或全账号资料。

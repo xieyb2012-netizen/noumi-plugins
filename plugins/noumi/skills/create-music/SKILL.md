@@ -3,7 +3,7 @@ name: create-music
 description: Create a finished original song with Noumi for the owner's current request, occasion, mood, or supplied lyrics; adapt using relevant feedback and permitted host memory. Use when the user requests actual music. For lyrics or advice alone, use the songwriting reference without audio generation. Do not use for installing or developing the plugin.
 ---
 
-<!-- Generated from agent-kit; content 5.1.1. Edit canonical sources, then run node scripts/build-agent-kit.mjs. -->
+<!-- Generated from agent-kit; content 5.1.2. Edit canonical sources, then run node scripts/build-agent-kit.mjs. -->
 
 # Create music with Noumi
 
@@ -69,4 +69,4 @@ Explain choices using evidence: “I used your request for lighter drums this ti
 
 ## Host connection
 
-Use the Noumi tools actually exposed by the installed plugin. The declared server is `noumi-plugin` at `https://noumi.cc/mcp`; the host supplies its actual tool prefix. Do not construct a prefix from the model name or mistake another connector's tools for this plugin. Let the human complete the host's OAuth login. Do not request, display, copy, or persist OAuth secrets or full authorization links. Content version 5.1.1; packaged plugin 5.1.1. Live tool schemas and capabilities take precedence over this snapshot.
+Use the Noumi tools actually exposed by the installed plugin. The declared server is `noumi-plugin` at `https://noumi.cc/mcp`; the host supplies its actual tool prefix. Do not construct a prefix from the model name or mistake another connector's tools for this plugin. Let the human complete the host's OAuth login. Do not request, display, copy, or persist OAuth secrets or full authorization links. Content version 5.1.2; packaged plugin 5.1.2. Live tool schemas and capabilities take precedence over this snapshot.

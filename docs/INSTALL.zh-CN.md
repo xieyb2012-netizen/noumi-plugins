@@ -1,66 +1,57 @@
-<!-- Generated from agent-kit; content 5.1.1. Edit canonical sources, then run node scripts/build-agent-kit.mjs. -->
+<!-- Generated from agent-kit; content 5.1.2. Edit canonical sources, then run node scripts/build-agent-kit.mjs. -->
 
-> 本地待审候选：插件 **5.1.1**，创作内容 **5.1.1**。未发布、未安装；历史验收记录不代表本候选已通过宿主授权或出歌测试。
+# 连接 Noumi
 
-# 安装 Noumi 测试版
+> 最近一次公开发布：插件与创作内容 **5.1.2**（2026-10-15，GitHub 本仓库）；本地 MCP 包为 npm `noumi-mcp@5.1.1`。已安装的副本不会自动更新，以宿主里实际显示的版本为准；发布不等于每个宿主都已实测通过，实测范围见兼容性记录。
 
-## 适用范围
+连接只需要做一次：之后直接用聊天告诉你的 Agent 想要什么歌。已经能用的连接直接继续用，不用重装。
 
-本教程针对支持本地插件市场的桌面工作环境，并要求本机可以运行 `codex` 命令。若仅使用普通网页聊天、手机端，或者客户端没有本地插件来源入口，请先向邀请人确认兼容性。不要把 ZIP 上传为普通聊天附件并视为安装成功。
+## 按你用的工具
 
-## 推荐：让桌面助手协助安装
+- **Claude（claude.ai / 桌面版）**：优先在 claude.ai 网页打开 Customize → Connectors → Add custom connector，名称 Noumi，地址 `https://noumi.cc/mcp`，点 Connect，登录 Noumi 并点「允许」。之后在对话里用「+」→ Connectors 打开它。
+- **Claude Code**：用 claude.ai 账号登录的，账户连接器已经在 `/mcp` 里，直接用；否则运行 `claude mcp add --transport http noumi https://noumi.cc/mcp`，再在 `/mcp` 里选它授权。也可以改装本仓库的插件（可选）。
+- **Codex**：运行 `codex mcp add noumi --url https://noumi.cc/mcp`，再运行 `codex mcp login noumi` 授权；也可以改装插件（可选）。已有同名条目时不要重复添加。
+- **WorkBuddy 等不支持授权的工具**：用原音乐人的密钥配置本地 MCP，见 [用密钥连接（备用）](https://noumi.cc/api-docs#key)。
+- **其他工具**：见 [接入指南](https://noumi.cc/api-docs)，那里写了每个工具的步骤和我们实测到哪一步。
 
-解压完整文件夹，复制它的实际路径，在能访问本地文件的 Codex 新任务中发送以下内容，将“实际路径”替换为你的文件夹路径：
+授权都由你本人在浏览器里完成。登录 Noumi 网站不等于授权，一定要在授权页上点「允许」。
 
-> 请从“实际路径”安装 Noumi 测试插件。先检查 README、.agents/plugins/marketplace.json 和 plugins/noumi/.mcp.json，确认来源为 noumi-beta，连接为 https://noumi.cc/mcp，不含登录凭证。使用 codex plugin marketplace add 添加这个本地根目录，然后安装 noumi@noumi-beta。授权由我在浏览器完成。不要修改其他 MCP 配置，不注册音乐人，不生成歌曲。若工具不可用，请报告具体问题，不要改用我原先的独立 Noumi MCP。
+## 安装插件（可选）
 
-不需要为了生成音乐创建一个代码项目。助手需要读取安装文件夹；装好后可在新的普通工作任务中使用。
-
-## 手动安装
-
-在终端进入解压后的根文件夹（可看见 README.md 和 plugins 文件夹），依次运行：
+插件把同一个远程连接和创作规范打包在一起，并不是另一种授权。装了插件就不要再手动加同一地址。
 
 ```text
-codex plugin marketplace add .
+codex plugin marketplace add xieyb2012-netizen/noumi-plugins
 codex plugin add noumi@noumi-beta
+
+claude plugin marketplace add xieyb2012-netizen/noumi-plugins
+claude plugin install noumi@noumi-beta
 ```
 
-第二步可能打开浏览器授权，或由桌面插件详情页提供“连接”按钮。只在 Noumi 官方页面登录自己的账号并允许连接。返回客户端，在插件页面确认 Noumi 已启用；若目录未刷新，保存工作后退出并重新打开客户端。
+装好后插件的服务（`noumi-plugin`）还要由你授权一次：Claude Code 在 `/mcp` 里选它登录；Codex 按客户端提示连接。列表里显示「已连接」只说明服务器连得上，不等于已授权。Windows 上 Claude 桌面版授权后停在「打开 Claude」时，在普通终端运行 `claude` → `/mcp` → 选它授权，再回桌面版新开会话，两边共用这份授权。
 
-不要安装多个来源的 Noumi 插件以免工具重复；如果已经安装 Noumi，请先确认旧版本来源，再按下面的更新方式处理。不要为此停掉 Noumi 云端服务器。
+不要安装多个来源的 Noumi 插件以免工具重复；已经装过的，先确认旧版本来源再更新。
 
 ## 第一次连接检查
 
-新建任务，发送：
+新建会话，发送：
 
-> 验证 Noumi 插件连接。确认 create-music 技能与 Noumi 工具来自 noumi@noumi-beta；如果客户端无法证明来源，请明确说明。只查询当前身份和创作指南，不注册音乐人、不生成歌曲、不修改配置。不要输出任何凭证。
+> 请调用 Noumi 的 noumi_whoami 和 noumi_get_guide：告诉我连上的 Noumi 账号、要用的音乐人（名字和编号）和它已有几首作品。只做检查，不注册音乐人、不生成歌曲。
 
-通过标准：技能存在，工具可调用，返回你自己的已授权身份，创作指南有实际结果。仅看见技能、授权成功页面或工具名称，不算完整通过。
-
-然后另开创作任务：
-
-> 用 Noumi 做一首适合下班路上听的中文歌，温暖、放松，有钢琴和轻柔鼓点。
-
-这是实际创作请求，会使用账号可用积分；新账号若没有音乐人，流程应先创建音乐人再创作。完成后前往返回的 Noumi 私人试听入口，确认能播放；歌曲仍为草稿。
+通过标准：报出你自己的账号、你要用的那个音乐人和它的作品，指南有实际内容。只看见工具名称、授权成功页面或「已连接」，不算通过。
 
 ## 常见问题
 
-- **找不到 codex 命令**：当前终端未配置 CLI。请使用支持本地插件的桌面助手协助，或向邀请人反馈客户端版本。不要下载来源不明的安装脚本。
-- **只有技能，没有工具**：确认插件已连接，重新打开客户端并新建任务。提供脱敏报错。插件服务标识为 `noumi-plugin`；已有同名手动配置可能冲突，应先由助手诊断，不盲目停用全部 MCP。
-- **身份未授权或不正确**：在插件连接设置中重新连接正确的 Noumi 账号。不要共享邀请人的授权信息。
-- **没有音乐人**：只读检查不会注册，这是正常的。你明确要求创作后才进入注册流程。
-- **积分不足**：按 Noumi 返回说明处理，插件不会自动购买积分。
-- **生成较慢或任务中断**：让助手继续查询原任务编号，不重新提交同一首歌。
-- **看不到播放卡片**：不同客户端支持不同，以实际返回的 Noumi 试听入口为准。
+- **显示已连接，但它不认识我**：还没授权或授权已失效。按上面你那种工具重新授权；不要为此重新注册音乐人。
+- **Windows 上 Claude 桌面版授权后停在「打开 Claude」**：关掉那次授权。用账户连接器的，改到 claude.ai 网页完成；用 Claude Code / 插件的，在普通终端运行 `claude` → `/mcp` 授权，再回桌面版新开会话。
+- **我的工具根本不出授权页**：有的工具要你显式点「连接 / 登录」。确实不支持授权、但能运行本地程序的，改用密钥备用。
+- **原来的音乐人没列出来**：先确认登录的是不是原来那个账号。音乐人认领在你账号下，授权后就会列出，不管当初怎么建的。不要新注册。
+- **没有音乐人**：只读检查不会注册，这是正常的。你明确要建一个时，确认名字后只建一个。
+- **积分不足**：按 Noumi 返回说明处理，Agent 不会自动购买积分。
+- **生成较慢或任务中断**：让 Agent 继续查询原任务编号，不重新提交同一首歌。
 
-## 更新和卸载
+## 更新和卸载插件
 
-保留解压文件夹，因为本地来源引用此目录。更新时先退出使用该插件的任务，将新版解压到新的长期目录，然后添加新目录并重新安装；若提示来源名称冲突，先用 `codex plugin marketplace list` 确认旧来源，再移除 `noumi-beta` 来源并添加新目录。不要手工清理账号凭证文件。
+更新：按宿主的插件更新方式操作，更新后新开会话确认版本。卸载可在客户端插件页面操作，或运行 `codex plugin remove noumi@noumi-beta` / `claude plugin uninstall noumi@noumi-beta`。卸载插件不会删除你的 Noumi 歌曲或账号。
 
-卸载可在客户端插件页面操作，或运行 `codex plugin remove noumi@noumi-beta`；不再需要来源时再运行 `codex plugin marketplace remove noumi-beta`。这不应删除你的 Noumi 歌曲或账号；如要撤销授权，另外使用账号／连接设置提供的撤销功能。
-
-官方依据（2026-09-15 核对）：[插件打包、本地来源与仓库分发](https://developers.openai.com/plugins/build/plugins)。文档描述的是安装机制，不能保证每个账号或客户端都开放相同入口。
-
-## 本候选的版本边界
-
-两宿主插件版本均为 5.1.1，共同创作内容为 5.1.1。当前材料仅在本地生成与检查；原有证据保留原日期。GitHub 安装命令在候选发布前不会取得它。连接检查与正式创作分开；不把手动 MCP 来源当作插件来源。
+更多细节和每个工具的实测范围见 [接入指南](https://noumi.cc/api-docs)。

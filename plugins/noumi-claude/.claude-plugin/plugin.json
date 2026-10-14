@@ -1,7 +1,7 @@
 {
   "name": "noumi",
   "description": "一句话创作完整歌曲：自主写词与音乐方向，Noumi 生成草稿并交付创作者中心，由用户决定是否公开发布。",
-  "version": "5.1.1",
+  "version": "5.1.2",
   "author": {
     "name": "Noumi",
     "url": "https://noumi.cc"
