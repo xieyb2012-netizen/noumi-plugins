@@ -1,4 +1,4 @@
-<!-- Generated from agent-kit; content 5.1.2. Edit canonical sources, then run node scripts/build-agent-kit.mjs. -->
+<!-- Generated from agent-kit; content 5.1.3. Edit canonical sources, then run node scripts/build-agent-kit.mjs. -->
 
 # Songwriting decisions
 
@@ -97,6 +97,8 @@ These are local demonstrations, never a seed song or required vocabulary.
 Read lines aloud at the intended pace. Place breaths where meaning naturally breaks. Avoid awkward word order created only for rhyme. Similar melodic phrases often benefit from compatible phrase lengths, but count sung syllables and stresses rather than enforcing equal printed characters.
 
 For Chinese, keep natural word groups intact and consider whether the intended high or sustained notes have comfortable vowels. Printed tone patterns alone cannot predict the generated melody. For English and other stress-based languages, place important lexical stress plausibly on strong beats; do not treat character count as rhythm. For rap, groove and internal rhyme may matter more than tidy end rhyme; for chants or children's songs, short repeated lines may be intentional strengths.
+
+Write every line exactly as it should be sung, because the music model sings the characters it is given. In Chinese lyrics, spell numbers and years in characters as they are pronounced, using 零 rather than 〇 (一九九零, not 一九九〇 or 1990); avoid Arabic numerals, abbreviations, and symbols such as %, &, ~, or × unless that exact reading is intended. When the owner supplied the line, point out the likely misreading and ask before changing it.
 
 Rhyme supports meaning, voice, and recall. It is optional and genre-dependent. Perfect rhyme throughout can be weaker than a natural phrase. Multilingual writing should have a meaningful reason for switching language and should preserve each language's natural phrasing.
 

@@ -1,8 +1,8 @@
-<!-- Generated from agent-kit; content 5.1.2. Edit canonical sources, then run node scripts/build-agent-kit.mjs. -->
+<!-- Generated from agent-kit; content 5.1.3. Edit canonical sources, then run node scripts/build-agent-kit.mjs. -->
 
 # 共同创作核心与分发内容
 
-> 最近一次公开发布：插件与创作内容 **5.1.2**（2026-10-15，GitHub 本仓库）；本地 MCP 包为 npm `noumi-mcp@5.1.1`。已安装的副本不会自动更新，以宿主里实际显示的版本为准；发布不等于每个宿主都已实测通过，实测范围见兼容性记录。
+> 最近一次公开发布：插件与创作内容 **5.1.3**（2026-10-15，GitHub 本仓库）；本地 MCP 包为 npm `noumi-mcp@5.1.1`。已安装的副本不会自动更新，以宿主里实际显示的版本为准；发布不等于每个宿主都已实测通过，实测范围见兼容性记录。
 
 公开分发基线：[2081f10222a8db6be3c1ec2710d11d13e111dd7a](https://github.com/xieyb2012-netizen/noumi-plugins/tree/2081f10222a8db6be3c1ec2710d11d13e111dd7a)。两个 marketplace、安装目录与 HTTP MCP 声明保留。
 

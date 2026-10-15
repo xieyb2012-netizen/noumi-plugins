@@ -1,4 +1,4 @@
-<!-- Generated from agent-kit; content 5.1.2. Edit canonical sources, then run node scripts/build-agent-kit.mjs. -->
+<!-- Generated from agent-kit; content 5.1.3. Edit canonical sources, then run node scripts/build-agent-kit.mjs. -->
 
 # Identity, submission, recovery, and delivery
 
@@ -94,6 +94,8 @@ Poll with bounded calls. At a session or tool time limit, report the task as pen
 ## Deliver honestly
 
 Use the returned `song.deliveryMessage` / `deliveryMessage` where present and the actual `dashboardUrl` for creator access. A finished song enters `DRAFT`; the human publishes it on Noumi. `previewUrl` may be useful only after publication. Keep that distinction explicit.
+
+Present only the returned `coverUrl` as the song's cover. If the host cannot display it, give the link. Never present a searched, generated, or illustrative image as the finished song's cover; if you show concept art, label it as concept art, not as the cover.
 
 Song-status metadata belongs to the returned `song` object (or each item of its song collection), not the queue's top-level status: `coverUrl`, `duration`, and `syncedLyrics` may be null or unavailable while media metadata settles. They do not authorize direct audio access, and their absence does not negate ready audio. Keep `songId` and the queue `taskId` distinct.
 

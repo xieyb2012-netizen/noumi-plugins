@@ -1,4 +1,4 @@
-<!-- Generated from agent-kit; content 5.1.2. Edit canonical sources, then run node scripts/build-agent-kit.mjs. -->
+<!-- Generated from agent-kit; content 5.1.3. Edit canonical sources, then run node scripts/build-agent-kit.mjs. -->
 
 # Structure and performance tags
 

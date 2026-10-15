@@ -1,8 +1,8 @@
-<!-- Generated from agent-kit; content 5.1.2. Edit canonical sources, then run node scripts/build-agent-kit.mjs. -->
+<!-- Generated from agent-kit; content 5.1.3. Edit canonical sources, then run node scripts/build-agent-kit.mjs. -->
 
 # 连接 Noumi
 
-> 最近一次公开发布：插件与创作内容 **5.1.2**（2026-10-15，GitHub 本仓库）；本地 MCP 包为 npm `noumi-mcp@5.1.1`。已安装的副本不会自动更新，以宿主里实际显示的版本为准；发布不等于每个宿主都已实测通过，实测范围见兼容性记录。
+> 最近一次公开发布：插件与创作内容 **5.1.3**（2026-10-15，GitHub 本仓库）；本地 MCP 包为 npm `noumi-mcp@5.1.1`。已安装的副本不会自动更新，以宿主里实际显示的版本为准；发布不等于每个宿主都已实测通过，实测范围见兼容性记录。
 
 连接只需要做一次：之后直接用聊天告诉你的 Agent 想要什么歌。已经能用的连接直接继续用，不用重装。
 
@@ -11,8 +11,8 @@
 - **Claude（claude.ai / 桌面版）**：优先在 claude.ai 网页打开 Customize → Connectors → Add custom connector，名称 Noumi，地址 `https://noumi.cc/mcp`，点 Connect，登录 Noumi 并点「允许」。之后在对话里用「+」→ Connectors 打开它。
 - **Claude Code**：用 claude.ai 账号登录的，账户连接器已经在 `/mcp` 里，直接用；否则运行 `claude mcp add --transport http noumi https://noumi.cc/mcp`，再在 `/mcp` 里选它授权。也可以改装本仓库的插件（可选）。
 - **Codex**：运行 `codex mcp add noumi --url https://noumi.cc/mcp`，再运行 `codex mcp login noumi` 授权；也可以改装插件（可选）。已有同名条目时不要重复添加。
-- **WorkBuddy 等不支持授权的工具**：用原音乐人的密钥配置本地 MCP，见 [用密钥连接（备用）](https://noumi.cc/api-docs#key)。
-- **其他工具**：见 [接入指南](https://noumi.cc/api-docs)，那里写了每个工具的步骤和我们实测到哪一步。
+- **WorkBuddy 等不支持授权的工具**：用原音乐人的密钥配置本地 MCP，见 [用密钥连接（备用）](https://noumi.cc/api-docs#key)。WorkBuddy 里要到「专家·技能·连接器」→「自定义连接器」→「MCP 服务管理」对新条目点「信任」。
+- **其他工具**：见 [接入指南](https://noumi.cc/api-docs)，那里写了每个工具的步骤和我们实测到哪一步。工具里必须能添加 MCP 服务或连接器；只能聊天的网页版 AI（例如 DeepSeek 网页版）连不上，请换支持的工具或直接用 Noumi 网站。
 
 授权都由你本人在浏览器里完成。登录 Noumi 网站不等于授权，一定要在授权页上点「允许」。
 
@@ -47,6 +47,7 @@ claude plugin install noumi@noumi-beta
 - **我的工具根本不出授权页**：有的工具要你显式点「连接 / 登录」。确实不支持授权、但能运行本地程序的，改用密钥备用。
 - **原来的音乐人没列出来**：先确认登录的是不是原来那个账号。音乐人认领在你账号下，授权后就会列出，不管当初怎么建的。不要新注册。
 - **没有音乐人**：只读检查不会注册，这是正常的。你明确要建一个时，确认名字后只建一个。
+- **刚打开新会话，Agent 说 Noumi 工具不可用**：有的工具（例如 Codex）会在连接完成前就开始回答。等几秒再问一次；不要为此重新登录或注册。
 - **积分不足**：按 Noumi 返回说明处理，Agent 不会自动购买积分。
 - **生成较慢或任务中断**：让 Agent 继续查询原任务编号，不重新提交同一首歌。
 
